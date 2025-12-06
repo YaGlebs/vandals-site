@@ -599,7 +599,7 @@ export default function Home() {
       <footer className="mt-24 border-t border-white/10 bg-[#0B0B0F]">
         <div className="w-full px-4 lg:px-10 py-14 text-sm text-muted">
           <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-[auto_1fr] gap-10 items-start">
-            <div className="flex flex-col gap-2 translate-y-3">
+            <div className="flex flex-col gap-2 translate-y-3 items-center md:items-start text-center md:text-left">
               <div className="leading-tight">
                 <div className="font-brand text-[36px] tracking-[0.14em] text-white leading-none">
                   VANDALS
