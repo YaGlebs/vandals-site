@@ -1,12 +1,13 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useMemo, useState, type SVGProps } from 'react';
+import { useEffect, useMemo, useState, type SVGProps, type CSSProperties } from 'react';
 import Link from 'next/link';
 
 const BOOKSY_PROFILE_URL =
   'https://booksy.com/pl-pl/225696_vandals-barbershop_barber-shop_3_warszawa';
 const IG_URL = 'https://instagram.com/vndls_barbershop';
+const ACCENT_PRESETS = ['#461b90', '#bfa76a', '#8e5cff'];
 
 type Lang = 'pl' | 'en' | 'uk' | 'ru';
 
@@ -246,14 +247,31 @@ function InstagramIcon(props: SVGProps<SVGSVGElement>) {
 }
 
 export default function Home() {
+  const [accent, setAccent] = useState<string>(ACCENT_PRESETS[0]);
   const [heroIdx, setHeroIdx] = useState(0);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [barberToast, setBarberToast] = useState(false);
   useEffect(() => {
     const id = setInterval(
       () => setHeroIdx((i) => (i + 1) % HERO_IMAGES.length),
       4200
     );
     return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() === 'b') {
+        setBarberToast(true);
+        setAccent((prev) => {
+          const next = ACCENT_PRESETS[(ACCENT_PRESETS.indexOf(prev) + 1) % ACCENT_PRESETS.length];
+          return next;
+        });
+        setTimeout(() => setBarberToast(false), 3000);
+      }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
   }, []);
 
   const [lang, setLang] = useState<Lang>('pl');
@@ -286,7 +304,10 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen pb-24 bg-background text-foreground">
+    <main
+      className="min-h-screen pb-24 bg-background text-foreground"
+      style={{ '--accent': accent } as CSSProperties}
+    >
       {/* ======= TOP BAR ======= */}
       <header className="sticky top-0 z-50 bg-[#0B0B0F] border-b border-white/10">
         <div className="mx-auto max-w-7xl h-[76px] px-4 md:px-6 flex items-center justify-between md:grid md:grid-cols-[1fr_auto_1fr] gap-3">
@@ -599,7 +620,15 @@ export default function Home() {
       <footer className="mt-24 border-t border-white/10 bg-[#0B0B0F]">
         <div className="w-full px-4 lg:px-10 py-14 text-sm text-muted">
           <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-[auto_1fr] gap-10 items-start">
-            <div className="flex flex-col gap-2 translate-y-3 items-center md:items-start text-center md:text-left">
+            <div
+              className="flex flex-col gap-2 translate-y-3 items-center md:items-start text-center md:text-left cursor-pointer"
+              onClick={() => {
+                const next =
+                  ACCENT_PRESETS[Math.floor(Math.random() * ACCENT_PRESETS.length)];
+                setAccent(next);
+              }}
+              title="Переключить неон"
+            >
               <div className="leading-tight">
                 <div className="font-brand text-[36px] tracking-[0.14em] text-white leading-none">
                   VANDALS
@@ -650,6 +679,15 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* Barber mode toast */}
+      {barberToast && (
+        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+          <div className="rounded-full bg-black/80 border border-[#bfa76a]/50 px-4 py-2 shadow-[0_8px_30px_rgba(191,167,106,0.35)] text-sm font-semibold text-[#f4e7b8]">
+            BARBER MODE ON
+          </div>
+        </div>
+      )}
     </main>
   );
 }
