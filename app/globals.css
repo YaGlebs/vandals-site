@@ -1,26 +1,121 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ---------- THEME TOKENS ---------- */
+:root{
+  --background:#0b0b0f;      
+  --foreground:#e7e7e7;
+  --muted:#a3a3a3;
+  --card:#111114;
+  --accent:#461b90;           
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-card: var(--card);
+  --color-accent: var(--accent);
+
+  --font-sans: var(--font-inter);
+  --font-brand: var(--font-brand);
+  --font-display: var(--font-display);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-body {
+/* ---------- BASE ---------- */
+html, body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+}
+* { box-sizing: border-box; }
+
+body { position: relative; }
+.site { position: relative; z-index: 1; }
+
+
+body::before{
+  content:"";
+  position: fixed; inset: 0; z-index: 0;
+  background:
+    radial-gradient(42% 45% at 50% 18%, rgba(255,255,255,.12), transparent 58%),
+    radial-gradient(115% 90% at 50% 60%, rgba(0,0,0,.35), rgba(0,0,0,.75)),
+    url('/bg-grunge.jpg') center/cover no-repeat,
+    url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMjAnIGhlaWdodD0nMTIwJyB2aWV3Qm94PScwIDAgMTIwIDEyMCc+PGZpbHRlciBpZD0nbic+PGZlVHVyYnVsZW5jZSB0eXBlPSdmcmFjdGFsTm9pc2UnIGJhc2VGcmVxdWVuY3k9Jy45JyBudW1PY3RhdmVzPScyJy8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9JzEyMCcgaGVpZ2h0PScxMjAnIGZpbHRlcj0ndXJsKCNuKScgb3BhY2l0eT0nLjIycicvPjwvc3ZnPg==");
+  background-blend-mode: screen, normal, overlay, soft-light;
+  opacity: .32;
+  pointer-events: none;
+}
+body::after{
+  content:"";
+  position: fixed; inset: 0; z-index: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.08), rgba(0,0,0,.16));
+  pointer-events: none;
+}
+
+
+::selection{
+  background: color-mix(in oklab, var(--accent) 55%, transparent);
+  color: #fff;
+}
+
+
+a{ text-underline-offset: 3px; }
+
+/* ---------- TYPE / SPECIAL ---------- */
+.vandal-heading{
+  font-family: var(--font-display), system-ui, sans-serif;
+  letter-spacing: .5px;
+  -webkit-text-stroke: .6px rgba(0,0,0,.35);
+  text-shadow:
+    0 0 24px rgba(124,58,237,.25),
+    0 2px 0 rgba(0,0,0,.35);
+}
+
+
+@keyframes streakPulse {
+  0%   { opacity: 0.22; filter: blur(0px); }
+  50%  { opacity: 0.42; filter: blur(1px); }
+  100% { opacity: 0.22; filter: blur(0px); }
+}
+.v-streak{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: none;
+  mix-blend-mode: screen;
+  animation: streakPulse 3.8s ease-in-out infinite;
+}
+
+
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.section-title{
+  font-family: var(--font-display), system-ui, sans-serif;
+  letter-spacing: 0.02em;
+  text-shadow:
+    0 8px 20px rgba(0,0,0,0.35),
+    0 1px 0 rgba(0,0,0,0.35);
+}
+
+.vice-title{
+  font-family: var(--font-display), system-ui, sans-serif;
+  letter-spacing: 0.04em;
+  background: linear-gradient(120deg, #fdf4ff 0%, #c084fc 35%, #7c3aed 65%, #5eead4 100%);
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow:
+    0 10px 30px rgba(124,58,237,0.35),
+    0 2px 0 rgba(0,0,0,0.45);
+}
+
+
+/* ---------- HIDE BOOKSY FLOATING BUTTON ---------- */
+[id^="Booksy-Widget"],
+[class*="booksy-widget"],
+[data-booksy-widget] {
+  display: none !important;
 }
