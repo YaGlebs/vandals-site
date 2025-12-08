@@ -74,17 +74,13 @@ const HERO_IMAGES = [
   '/hero-5.jpg',
 ];
 
+// Поставил существующие файлы, чтобы не ловить 404 при отсутствии фото в /public/portfolio
 const PORTFOLIO_IMAGES = [
-  '/portfolio/portfolio-1.jpg',
-  '/portfolio/portfolio-2.jpg',
-  '/portfolio/portfolio-3.jpg',
-  '/portfolio/portfolio-4.jpg',
-  '/portfolio/portfolio-5.jpg',
-  '/portfolio/portfolio-6.jpg',
-  '/portfolio/portfolio-7.jpg',
-  '/portfolio/portfolio-8.jpg',
-  '/portfolio/portfolio-9.jpg',
-  '/portfolio/portfolio-10.jpg',
+  '/hero-1.jpg',
+  '/hero-2.jpg',
+  '/hero-3.jpg',
+  '/hero-4.jpg',
+  '/hero-5.jpg',
 ];
 
 type Service = {
