@@ -74,13 +74,14 @@ const HERO_IMAGES = [
   '/hero-5.jpg',
 ];
 
-// Поставил существующие файлы, чтобы не ловить 404 при отсутствии фото в /public/portfolio
 const PORTFOLIO_IMAGES = [
+  // добавь файл в public/portfolio/portfolio-1.jpg (этот портрет)
+  '/portfolio/portfolio-1.jpg',
+  // остальные пока на существующие hero, чтобы не ловить 404 до загрузки картинок
   '/hero-1.jpg',
   '/hero-2.jpg',
   '/hero-3.jpg',
   '/hero-4.jpg',
-  '/hero-5.jpg',
 ];
 
 type Service = {
