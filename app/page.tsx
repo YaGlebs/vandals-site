@@ -674,7 +674,7 @@ export default function Home() {
                         {t('hoursTitle')}
                       </div>
                       <HoursRow label={t('hoursWeek')} value="10:00–21:00" />
-                      <HoursRow label={t('hoursSun')} value="11:00–18:00" />
+                      <HoursRow label={t('hoursSun')} value="11:00–19:00" />
                     </div>
                   </div>
                 </div>
