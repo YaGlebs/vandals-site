@@ -261,6 +261,7 @@ function InstagramIcon(props: SVGProps<SVGSVGElement>) {
 export default function Home() {
   const [heroIdx, setHeroIdx] = useState(0);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [portfolioIdx, setPortfolioIdx] = useState(0);
   useEffect(() => {
     const id = setInterval(
       () => setHeroIdx((i) => (i + 1) % HERO_IMAGES.length),
@@ -268,6 +269,11 @@ export default function Home() {
     );
     return () => clearInterval(id);
   }, []);
+
+  const nextPortfolio = () =>
+    setPortfolioIdx((i) => (i + 1) % PORTFOLIO_IMAGES.length);
+  const prevPortfolio = () =>
+    setPortfolioIdx((i) => (i - 1 + PORTFOLIO_IMAGES.length) % PORTFOLIO_IMAGES.length);
 
   const [lang, setLang] = useState<Lang>('pl');
 
@@ -506,25 +512,61 @@ export default function Home() {
       <section id="portfolio" className="mx-auto max-w-7xl px-4 md:px-6 py-14">
         <h2 className="section-title text-2xl md:text-3xl font-bold">{t('portfolioTitle')}</h2>
 
-        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {PORTFOLIO_IMAGES.map((src, i) => (
-            <div
-              key={src}
-              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.35)]"
+        <div className="mt-6 relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+          <div className="relative aspect-[4/5] sm:aspect-[3/4] lg:aspect-[16/9] overflow-hidden">
+            {PORTFOLIO_IMAGES.map((src, i) => (
+              <Image
+                key={src}
+                src={src}
+                alt={`Portfolio ${i + 1}`}
+                fill
+                sizes="100vw"
+                className={[
+                  'absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out',
+                  i === portfolioIdx ? 'translate-x-0' : i < portfolioIdx ? '-translate-x-full' : 'translate-x-full',
+                ].join(' ')}
+                priority={i === 0}
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/hero-1.jpg';
+                }}
+              />
+            ))}
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+          </div>
+
+          <div className="absolute inset-y-0 left-0 flex items-center px-3">
+            <button
+              onClick={prevPortfolio}
+              className="h-10 w-10 rounded-full bg-black/60 border border-white/20 text-white hover:bg-black/80 transition"
+              aria-label="Poprzednie zdjęcie"
             >
-              <div className="relative aspect-[4/5]">
-                <Image
-                  src={src}
-                  alt={`Portfolio ${i + 1}`}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition duration-500 group-hover:scale-105"
-                  priority={i < 3}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition" />
-              </div>
-            </div>
-          ))}
+              ‹
+            </button>
+          </div>
+          <div className="absolute inset-y-0 right-0 flex items-center px-3">
+            <button
+              onClick={nextPortfolio}
+              className="h-10 w-10 rounded-full bg-black/60 border border-white/20 text-white hover:bg-black/80 transition"
+              aria-label="Następne zdjęcie"
+            >
+              ›
+            </button>
+          </div>
+
+          <div className="flex justify-center gap-2 py-3">
+            {PORTFOLIO_IMAGES.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setPortfolioIdx(i)}
+                className={[
+                  'h-2.5 w-2.5 rounded-full transition',
+                  i === portfolioIdx ? 'bg-white' : 'bg-white/30 hover:bg-white/60',
+                ].join(' ')}
+                aria-label={`Zdjęcie ${i + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </section>
 
