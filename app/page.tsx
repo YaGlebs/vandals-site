@@ -262,6 +262,7 @@ export default function Home() {
   const [heroIdx, setHeroIdx] = useState(0);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [portfolioIdx, setPortfolioIdx] = useState(0);
+  const [chunkSize, setChunkSize] = useState(2);
   useEffect(() => {
     const id = setInterval(
       () => setHeroIdx((i) => (i + 1) % HERO_IMAGES.length),
@@ -270,14 +271,26 @@ export default function Home() {
     return () => clearInterval(id);
   }, []);
 
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)');
+    const updateChunk = () => setChunkSize(mq.matches ? 2 : 1);
+    updateChunk();
+    mq.addEventListener('change', updateChunk);
+    return () => mq.removeEventListener('change', updateChunk);
+  }, []);
+
   const slides = useMemo(() => {
-    const chunkSize = 2; // показываем по 2 вертикальных снимка на десктопе
     const result: string[][] = [];
     for (let i = 0; i < PORTFOLIO_IMAGES.length; i += chunkSize) {
       result.push(PORTFOLIO_IMAGES.slice(i, i + chunkSize));
     }
     return result;
-  }, []);
+  }, [chunkSize]);
+
+  const activeSlide = useMemo(
+    () => Math.max(0, Math.min(portfolioIdx, Math.max(slides.length - 1, 0))),
+    [portfolioIdx, slides.length]
+  );
 
   const nextPortfolio = () =>
     setPortfolioIdx((i) => (i + 1) % slides.length);
@@ -528,9 +541,9 @@ export default function Home() {
                 key={group.join('-')}
                 className={[
                   'absolute inset-0 grid gap-4 sm:grid-cols-2 p-4 transition-transform duration-500 ease-out items-center',
-                  idx === portfolioIdx
+                  idx === activeSlide
                     ? 'translate-x-0'
-                    : idx < portfolioIdx
+                    : idx < activeSlide
                     ? '-translate-x-full'
                     : 'translate-x-full',
                 ].join(' ')}
@@ -585,7 +598,7 @@ export default function Home() {
                 onClick={() => setPortfolioIdx(i)}
                 className={[
                   'h-2.5 w-2.5 rounded-full transition',
-                  i === portfolioIdx ? 'bg-white' : 'bg-white/30 hover:bg-white/60',
+                  i === activeSlide ? 'bg-white' : 'bg-white/30 hover:bg-white/60',
                 ].join(' ')}
                 aria-label={`Zdjęcie ${i + 1}`}
               />
