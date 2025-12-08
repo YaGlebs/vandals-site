@@ -616,11 +616,11 @@ export default function Home() {
             <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
               <div>
                 <dt className="text-[#e6d9a3]/90">{t('contactPhone')}</dt>
-                <dd className="font-medium mt-0.5">+48 500 000 000</dd>
+                <dd className="font-medium mt-0.5">+48 571 848 348</dd>
               </div>
               <div>
                 <dt className="text-[#e6d9a3]/90">{t('contactEmail')}</dt>
-                <dd className="font-medium mt-0.5">info@vandals.barbershop</dd>
+                <dd className="font-medium mt-0.5">tema.lucenko1743@gmail.com</dd>
               </div>
               <div className="col-span-2">
                 <dt className="text-[#e6d9a3]/90">{t('contactAddress')}</dt>
