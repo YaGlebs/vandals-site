@@ -74,6 +74,19 @@ const HERO_IMAGES = [
   '/hero-5.jpg',
 ];
 
+const PORTFOLIO_IMAGES = [
+  '/portfolio/portfolio-1.jpg',
+  '/portfolio/portfolio-2.jpg',
+  '/portfolio/portfolio-3.jpg',
+  '/portfolio/portfolio-4.jpg',
+  '/portfolio/portfolio-5.jpg',
+  '/portfolio/portfolio-6.jpg',
+  '/portfolio/portfolio-7.jpg',
+  '/portfolio/portfolio-8.jpg',
+  '/portfolio/portfolio-9.jpg',
+  '/portfolio/portfolio-10.jpg',
+];
+
 type Service = {
   title: Record<Lang, string>;
   desc: Record<Lang, string>;
@@ -493,27 +506,24 @@ export default function Home() {
       <section id="portfolio" className="mx-auto max-w-7xl px-4 md:px-6 py-14">
         <h2 className="section-title text-2xl md:text-3xl font-bold">{t('portfolioTitle')}</h2>
 
-        <div className="mt-6 overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm">
-          <div className="aspect-video relative">
-            <video
-              className="h-full w-full object-cover"
-              src="/portfolio-loop.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster="/hero-vandal.jpg"
-            />
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(100%_90%_at_50%_0%,rgba(0,0,0,.35),transparent_60%)]" />
-          </div>
-        </div>
-
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
-          {Array.from({ length: 6 }).map((_, i) => (
+        <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {PORTFOLIO_IMAGES.map((src, i) => (
             <div
-              key={i}
-              className="aspect-[4/3] rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm"
-            />
+              key={src}
+              className="group relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.35)]"
+            >
+              <div className="relative aspect-[4/5]">
+                <Image
+                  src={src}
+                  alt={`Portfolio ${i + 1}`}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition duration-500 group-hover:scale-105"
+                  priority={i < 3}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-80 group-hover:opacity-60 transition" />
+              </div>
+            </div>
           ))}
         </div>
       </section>
