@@ -75,13 +75,16 @@ const HERO_IMAGES = [
 ];
 
 const PORTFOLIO_IMAGES = [
-  // добавь файл в public/portfolio/portfolio-1.jpg (этот портрет)
   '/portfolio/portfolio-1.jpg',
-  // остальные пока на существующие hero, чтобы не ловить 404 до загрузки картинок
-  '/hero-1.jpg',
-  '/hero-2.jpg',
-  '/hero-3.jpg',
-  '/hero-4.jpg',
+  '/portfolio/portfolio-2.jpg',
+  '/portfolio/portfolio-3.jpg',
+  '/portfolio/portfolio-4.jpg',
+  '/portfolio/portfolio-5.jpg',
+  '/portfolio/portfolio-6.jpg',
+  '/portfolio/portfolio-7.jpg',
+  '/portfolio/portfolio-8.jpg',
+  '/portfolio/portfolio-9.jpg',
+  '/portfolio/portfolio-10.jpg',
 ];
 
 type Service = {
@@ -267,10 +270,19 @@ export default function Home() {
     return () => clearInterval(id);
   }, []);
 
+  const slides = useMemo(() => {
+    const chunkSize = 2; // показываем по 2 вертикальных снимка на десктопе
+    const result: string[][] = [];
+    for (let i = 0; i < PORTFOLIO_IMAGES.length; i += chunkSize) {
+      result.push(PORTFOLIO_IMAGES.slice(i, i + chunkSize));
+    }
+    return result;
+  }, []);
+
   const nextPortfolio = () =>
-    setPortfolioIdx((i) => (i + 1) % PORTFOLIO_IMAGES.length);
+    setPortfolioIdx((i) => (i + 1) % slides.length);
   const prevPortfolio = () =>
-    setPortfolioIdx((i) => (i - 1 + PORTFOLIO_IMAGES.length) % PORTFOLIO_IMAGES.length);
+    setPortfolioIdx((i) => (i - 1 + slides.length) % slides.length);
 
   const [lang, setLang] = useState<Lang>('pl');
 
@@ -510,26 +522,41 @@ export default function Home() {
         <h2 className="section-title text-2xl md:text-3xl font-bold">{t('portfolioTitle')}</h2>
 
         <div className="mt-6 relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
-          <div className="relative aspect-[4/5] sm:aspect-[3/4] lg:aspect-[16/9] overflow-hidden">
-            {PORTFOLIO_IMAGES.map((src, i) => (
-              <Image
-                key={src}
-                src={src}
-                alt={`Portfolio ${i + 1}`}
-                fill
-                sizes="100vw"
+          <div className="relative overflow-hidden min-h-[720px]">
+            {slides.map((group, idx) => (
+              <div
+                key={group.join('-')}
                 className={[
-                  'absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out',
-                  i === portfolioIdx ? 'translate-x-0' : i < portfolioIdx ? '-translate-x-full' : 'translate-x-full',
+                  'absolute inset-0 grid gap-4 sm:grid-cols-2 p-4 transition-transform duration-500 ease-out items-center',
+                  idx === portfolioIdx
+                    ? 'translate-x-0'
+                    : idx < portfolioIdx
+                    ? '-translate-x-full'
+                    : 'translate-x-full',
                 ].join(' ')}
-                priority={i === 0}
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.src = '/hero-1.jpg';
-                }}
-              />
+              >
+                {group.map((src, i) => (
+                  <div
+                    key={src}
+                    className="relative w-full h-[680px] md:h-[640px] overflow-hidden rounded-[32px] bg-black/70 flex items-center justify-center"
+                  >
+                    <Image
+                      src={src}
+                      alt={`Portfolio ${idx * 2 + i + 1}`}
+                      fill
+                      sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
+                      className="object-contain transition duration-500 rounded-[32px]"
+                      priority={idx === 0 && i === 0}
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.src = '/hero-1.jpg';
+                      }}
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-[32px]" />
+                  </div>
+                ))}
+              </div>
             ))}
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
           </div>
 
           <div className="absolute inset-y-0 left-0 flex items-center px-3">
@@ -552,7 +579,7 @@ export default function Home() {
           </div>
 
           <div className="flex justify-center gap-2 py-3">
-            {PORTFOLIO_IMAGES.map((_, i) => (
+            {slides.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setPortfolioIdx(i)}
