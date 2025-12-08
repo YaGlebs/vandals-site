@@ -613,14 +613,14 @@ export default function Home() {
 
         <div className="mt-6 grid gap-8 md:grid-cols-2">
           <div className="relative rounded-3xl border border-white/10 bg-black/50 backdrop-blur-sm p-6">
-            <dl className="grid grid-cols-2 gap-x-6 gap-y-2 text-sm">
-              <div>
+            <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
+              <div className="min-w-0">
                 <dt className="text-[#e6d9a3]/90">{t('contactPhone')}</dt>
-                <dd className="font-medium mt-0.5">+48 571 848 348</dd>
+                <dd className="font-medium mt-0.5 break-words">+48 571 848 348</dd>
               </div>
-              <div>
+              <div className="min-w-0">
                 <dt className="text-[#e6d9a3]/90">{t('contactEmail')}</dt>
-                <dd className="font-medium mt-0.5">tema.lucenko1743@gmail.com</dd>
+                <dd className="font-medium mt-0.5 break-words">tema.lucenko1743@gmail.com</dd>
               </div>
               <div className="col-span-2">
                 <dt className="text-[#e6d9a3]/90">{t('contactAddress')}</dt>
