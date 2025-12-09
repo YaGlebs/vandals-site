@@ -1,5 +1,6 @@
 import './globals.css';
 import { Inter, Russo_One, Oswald } from 'next/font/google';
+import Script from 'next/script';
 import type { Metadata } from 'next';
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'], variable: '--font-inter' });
@@ -68,10 +69,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     name: 'Vandals Barbershop',
     url: siteUrl,
     description: defaultDescription,
-    telephone: '+48 500 000 000',
+    telephone: '+48 571 848 348',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Tolkiena 1, U3',
+      streetAddress: 'JRR Tolkiena 1/4',
       addressLocality: 'Warszawa',
       postalCode: '02-676',
       addressCountry: 'PL',
@@ -83,6 +84,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pl">
       <body className={`${inter.variable} ${russo.variable} ${oswald.variable} font-sans antialiased`}>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17126142870"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17126142870');
+          `}
+        </Script>
+
         <script
           type="application/ld+json"
           suppressHydrationWarning
