@@ -31,7 +31,7 @@ export default function PrivacyPolicy() {
         <section className="space-y-3">
           <h2 className="text-xl font-semibold">Administrator danych</h2>
           <p className="text-sm text-white/80">
-            Administratorem danych jest Vandals Barbershop, Tolkiena 1, U3, 02-676 Warszawa (Mokotów). Kontakt: info@vandals.barbershop, tel. +48 500 000 000.
+            Administratorem danych jest Vandals Barbershop, JRR Tolkiena 1/4, 02-676, Warszawa (Mokotów). Kontakt: tema.lucenko1743@gmail.com, tel. +48 571 848 348.
           </p>
         </section>
 
@@ -93,7 +93,7 @@ export default function PrivacyPolicy() {
         <section className="space-y-3">
           <h2 className="text-xl font-semibold">Kontakt</h2>
           <p className="text-sm text-white/80">
-            W sprawach dotyczących danych osobowych skontaktuj się: info@vandals.barbershop lub telefonicznie +48 500 000 000.
+            W sprawach dotyczących danych osobowych skontaktuj się: tema.lucenko1743@gmail.com lub telefonicznie +48 571 848 348.
           </p>
         </section>
       </div>

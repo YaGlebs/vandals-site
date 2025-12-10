@@ -14,7 +14,7 @@ const LANG_OPTIONS: { code: Lang; label: string }[] = [
   { code: 'pl', label: 'PL' },
   { code: 'en', label: 'EN' },
   { code: 'uk', label: 'UA' },
-  { code: 'ru', label: 'BY' },
+  { code: 'ru', label: 'RU' },
 ];
 
 const TEXT: Record<string, Record<Lang, string>> = {
