@@ -482,7 +482,6 @@ export default function Home() {
           <div className="absolute inset-0" />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 h-20 bg-gradient-to-b from-transparent via-black/20 to-[var(--background)]" />
         </div>
-
       </section>
 
       {/* ======= USŁUGИ ======= */}
@@ -534,7 +533,7 @@ export default function Home() {
       <section id="portfolio" className="mx-auto max-w-7xl px-4 md:px-6 py-14">
         <h2 className="section-title text-2xl md:text-3xl font-bold">{t('portfolioTitle')}</h2>
 
-        <div className="mt-6 relative overflow-hidden rounded-2xl border border-white/10 bg-black/40 backdrop-blur-sm shadow-[0_10px_40px_rgba(0,0,0,0.35)]">
+        <div className="mt-6 relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-[#0f0f12] via-[#111018] to-[#0b0b0f] shadow-[0_14px_50px_rgba(0,0,0,0.45)]">
           <div className="relative overflow-hidden min-h-[720px]">
             {slides.map((group, idx) => (
               <div
@@ -549,23 +548,23 @@ export default function Home() {
                 ].join(' ')}
               >
                 {group.map((src, i) => (
-                  <div
-                    key={src}
-                    className="relative w-full h-[680px] md:h-[640px] overflow-hidden rounded-[32px] bg-black/70 flex items-center justify-center"
-                  >
-                    <Image
-                      src={src}
-                      alt={`Portfolio ${idx * 2 + i + 1}`}
-                      fill
-                      sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
-                      className="object-contain transition duration-500 rounded-[32px]"
-                      priority={idx === 0 && i === 0}
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = '/hero-1.jpg';
-                      }}
-                    />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-[32px]" />
+                  <div key={src} className="relative w-full h-[680px] md:h-[640px] flex items-center justify-center">
+                    <div className="absolute inset-0 rounded-[36px] bg-[conic-gradient(from_120deg_at_50%_50%,#f9b6ff,#7c3aed,#54c7f3,#f9b6ff)] opacity-45 blur-[12px]" />
+                    <div className="relative m-[8px] w-[calc(100%-16px)] h-[calc(100%-16px)] overflow-hidden rounded-[32px] bg-black/75 border border-white/10 flex items-center justify-center shadow-[0_14px_40px_rgba(0,0,0,0.45)]">
+                      <Image
+                        src={src}
+                        alt={`Portfolio ${idx * 2 + i + 1}`}
+                        fill
+                        sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
+                        className="object-contain transition duration-500 rounded-[32px]"
+                        priority={idx === 0 && i === 0}
+                        onError={(e) => {
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/hero-1.jpg';
+                        }}
+                      />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent rounded-[32px]" />
+                    </div>
                   </div>
                 ))}
               </div>
