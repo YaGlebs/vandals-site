@@ -632,7 +632,7 @@ export default function Home() {
             <div className="mt-5 relative overflow-hidden rounded-3xl border border-white/10 shadow-sm h-[240px] sm:h-[280px] bg-black/60">
               <iframe
                 title="Mapa Vandals"
-                src="https://www.google.com/maps?q=Vandals%20Barbershop%20JRR%20Tolkiena%201/4%2002-676%20Warszawa&hl=pl&z=18&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d6140.16234436077!2d20.986911439655167!3d52.18654255311116!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4719337e09083617%3A0x4d2407ee0c9bc4d3!2sVandals%20Barbershop!5e0!3m2!1spl!2sus!4v1765466713518!5m2!1spl!2sus"
                 loading="lazy"
                 className="absolute inset-0 h-full w-full"
                 referrerPolicy="no-referrer-when-downgrade"
