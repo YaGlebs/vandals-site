@@ -629,10 +629,10 @@ export default function Home() {
               </div>
             </dl>
 
-            <div className="mt-5 relative overflow-hidden rounded-3xl border border-white/10 shadow-sm h-[240px] sm:h-[280px]">
+            <div className="mt-5 relative overflow-hidden rounded-3xl border border-white/10 shadow-sm h-[240px] sm:h-[280px] bg-black/60">
               <iframe
                 title="Mapa Vandals"
-                src="https://www.google.com/maps?q=Vandals%20Barbershop%20JRR%20Tolkiena%201/4%2002-676%20Warszawa&hl=pl&z=18&output=embed"
+                src="https://maps.google.com/maps?width=100%25&height=300&hl=pl&q=Vandals%20Barbershop%20JRR%20Tolkiena%201/4%2002-676%20Warszawa&t=&z=17&ie=UTF8&iwloc=B&output=embed"
                 loading="lazy"
                 className="absolute inset-0 h-full w-full"
                 referrerPolicy="no-referrer-when-downgrade"
